@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eliminación de Datos — Upgrade Pymes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a; --bg-card: #1e293b; --accent: #6366f1;
+      --text: #f8fafc; --text-secondary: #94a3b8;
+      --border: rgba(99, 102, 241, 0.2);
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.7; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.85); border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto; padding: 0 1.25rem;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 1.05rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+    .nav-back { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    main { max-width: 860px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+    .page-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .page-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .last-updated { color: var(--text-secondary); font-size: 0.9rem; }
+    .content-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    h2 .num {
+      background: rgba(99,102,241,0.15); color: var(--accent);
+      width: 28px; height: 28px; border-radius: 50%;
+      font-size: 0.8rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    p { color: var(--text-secondary); margin-bottom: 0.75rem; font-size: 0.95rem; }
+    p:last-child { margin-bottom: 0; }
+    ul { color: var(--text-secondary); font-size: 0.95rem; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    ul li { margin-bottom: 0.4rem; }
+    ol { color: var(--text-secondary); font-size: 0.95rem; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    ol li { margin-bottom: 0.6rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .highlight {
+      background: rgba(99,102,241,0.08); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0;
+      color: var(--text-secondary); font-size: 0.95rem;
+    }
+    .cta-box {
+      background: rgba(99,102,241,0.1); border: 1px solid var(--accent);
+      border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem;
+    }
+    .cta-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .cta-box p { margin-bottom: 1.25rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #fff; text-decoration: none;
+      padding: 0.8rem 1.5rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: #4f46e5; transform: translateY(-2px); text-decoration: none; }
+    .steps-list { list-style: none; padding: 0; counter-reset: steps; }
+    .steps-list li {
+      counter-increment: steps;
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.95rem;
+    }
+    .steps-list li::before {
+      content: counter(steps);
+      background: var(--accent); color: #fff;
+      width: 24px; height: 24px; border-radius: 50%;
+      font-size: 0.75rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.25rem; text-align: center; }
+    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    @media (min-width: 600px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
+    .footer-copy { color: var(--text-secondary); font-size: 0.85rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center; }
+    .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span>Upgrade Pymes</a>
+      <a href="/" class="nav-back">← Volver al inicio</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <p class="page-label">Legal</p>
+      <h1>Eliminación de Datos</h1>
+      <p class="last-updated">Última actualización: enero de 2026</p>
+    </div>
+
+    <div class="highlight">
+      Tu privacidad es importante para nosotros. Tienes derecho a solicitar la eliminación de tus datos personales en cualquier momento y te atenderemos en un plazo máximo de 30 días.
+    </div>
+
+    <div class="content-card">
+      <h2><span class="num">1</span> Tu derecho a la eliminación</h2>
+      <p>De acuerdo con el Reglamento General de Protección de Datos (RGPD) y las políticas de Meta Platform, tienes derecho a solicitar la eliminación de todos los datos personales que Upgrade Pymes haya recopilado sobre ti.</p>
+      <p>Esto incluye datos recopilados a través de:</p>
+      <ul>
+        <li>Conversaciones con nuestros chatbots de WhatsApp Business.</li>
+        <li>Formularios de contacto en nuestro sitio web.</li>
+        <li>Comunicaciones por correo electrónico.</li>
+        <li>Cualquier otro canal de nuestros servicios.</li>
+      </ul>
+    </div>
+
+    <div class="content-card">
+      <h2><span class="num">2</span> Cómo solicitar la eliminación</h2>
+      <p>Para solicitar la eliminación de tus datos, sigue estos pasos:</p>
+      <ol class="steps-list">
+        <li>Envía un correo a <a href="mailto:silvygallup98@gmail.com">silvygallup98@gmail.com</a> con el asunto <strong>"Solicitud de eliminación de datos"</strong>.</li>
+        <li>Incluye tu nombre completo y el número de teléfono o email con el que interactuaste con nuestros servicios.</li>
+        <li>Recibirás una confirmación de recepción en un plazo de <strong>48 horas hábiles</strong>.</li>
+        <li>Procesaremos tu solicitud y eliminaremos tus datos en un máximo de <strong>30 días</strong>.</li>
+        <li>Te enviaremos una confirmación cuando la eliminación se haya completado.</li>
+      </ol>
+    </div>
+
+    <div class="content-card">
+      <h2><span class="num">3</span> Qué datos se eliminan</h2>
+      <p>Al aceptar tu solicitud, procederemos a eliminar:</p>
+      <ul>
+        <li>Historial de conversaciones de WhatsApp asociado a tu número.</li>
+        <li>Datos de contacto (nombre, email, teléfono).</li>
+        <li>Datos de uso y métricas vinculadas a tu perfil.</li>
+        <li>Cualquier otra información personal identificable.</li>
+      </ul>
+    </div>
+
+    <div class="content-card">
+      <h2><span class="num">4</span> Excepciones</h2>
+      <p>En algunos casos, podemos estar obligados a conservar ciertos datos por requisitos legales, como:</p>
+      <ul>
+        <li>Datos necesarios para cumplir obligaciones fiscales o contables.</li>
+        <li>Información requerida en el contexto de litigios o reclamaciones activas.</li>
+        <li>Datos cuya conservación esté exigida por ley.</li>
+      </ul>
+      <p>En estos casos, te informaremos de los datos que no podemos eliminar y el motivo.</p>
+    </div>
+
+    <div class="content-card">
+      <h2><span class="num">5</span> Eliminación de datos de Facebook / Meta</h2>
+      <p>Si utilizaste nuestros servicios a través de una integración con Facebook o Instagram, también puedes gestionar la eliminación de datos directamente desde tu cuenta de Facebook:</p>
+      <ul>
+        <li>Ve a <strong>Configuración de Facebook → Tu información de Facebook → Eliminar tu cuenta e información</strong>.</li>
+        <li>O contacta directamente con el <a href="https://www.facebook.com/help/contact/540977946302970" target="_blank" rel="noopener">Centro de ayuda de Meta</a>.</li>
+      </ul>
+    </div>
+
+    <div class="cta-box">
+      <h3>¿Listo para solicitar la eliminación?</h3>
+      <p>Escríbenos directamente y gestionamos tu solicitud en menos de 30 días.</p>
+      <a href="mailto:silvygallup98@gmail.com?subject=Solicitud%20de%20eliminaci%C3%B3n%20de%20datos" class="btn">
+        ✉️ Enviar solicitud por email
+      </a>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Upgrade Pymes. Todos los derechos reservados.</p>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="/privacy.html">Política de privacidad</a>
+        <a href="/terms.html">Condiciones</a>
+        <a href="/delete-data.html">Eliminación de datos</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
